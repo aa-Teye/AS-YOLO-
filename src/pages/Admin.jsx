@@ -176,6 +176,69 @@ function Dashboard({ onLogout }) {
           </div>
         </div>
 
+        {/* Gate QR Code Generator */}
+        <div className="card card-teal" style={{ padding: '20px', marginBottom: 24, display: 'flex', flexDirection: 'row', gap: 20, alignItems: 'center', flexWrap: 'wrap' }}>
+          <div style={{ flex: 1, minWidth: 200 }}>
+            <span className="badge badge-teal" style={{ marginBottom: 8 }}>Entrance setup</span>
+            <h3 style={{ fontSize: 15, fontWeight: 800, color: 'white', marginBottom: 6 }}>
+              Event Registration QR Code
+            </h3>
+            <p style={{ fontSize: 12, color: 'var(--white-60)', lineHeight: 1.6 }}>
+              Print this QR code and post it at the gate of Overcomers Nation Church. Attendees can scan this code with their phones to instantly open this web app and register!
+            </p>
+            <div style={{ marginTop: 14 }}>
+              <button 
+                onClick={() => {
+                  const printWindow = window.open('', '_blank');
+                  printWindow.document.write(`
+                    <html>
+                      <head>
+                        <title>AS YOLO 2026 - Scan to Register</title>
+                        <style>
+                          body { font-family: sans-serif; text-align: center; padding: 40px; color: #050D1A; }
+                          .container { max-width: 500px; margin: 0 auto; border: 4px solid #C4922A; padding: 40px; border-radius: 20px; }
+                          h1 { font-size: 28px; margin-bottom: 10px; color: #C4922A; }
+                          p { font-size: 16px; color: #555; margin-bottom: 30px; }
+                          .qr-wrapper { background: white; padding: 20px; display: inline-block; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                          .footer { margin-top: 40px; font-size: 12px; color: #999; font-weight: bold; }
+                        </style>
+                      </head>
+                      <body>
+                        <div class="container">
+                          <h1>AS YOLO 2026</h1>
+                          <p>SCAN TO REGISTER FOR THE EVENT</p>
+                          <div class="qr-wrapper">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(window.location.origin)}" width="300" height="300" />
+                          </div>
+                          <div class="footer">THE HAVEN - ONCYM</div>
+                        </div>
+                        <script>
+                          window.onload = function() { window.print(); }
+                        </script>
+                      </body>
+                    </html>
+                  `);
+                  printWindow.document.close();
+                }}
+                className="btn btn-teal btn-sm"
+              >
+                Print Scan Poster
+              </button>
+            </div>
+          </div>
+          
+          <div style={{
+            background: 'white', padding: 8, borderRadius: 12,
+            boxShadow: '0 4px 20px rgba(0,0,0,0.3)', display: 'inline-block', flexShrink: 0, margin: '0 auto'
+          }}>
+            <img 
+              src={`https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=${encodeURIComponent(window.location.origin)}`}
+              alt="Scan to Register QR Code"
+              style={{ display: 'block', width: 110, height: 110 }}
+            />
+          </div>
+        </div>
+
         {/* Stat Cards */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12, marginBottom: 24 }}>
           {[
