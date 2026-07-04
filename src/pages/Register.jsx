@@ -40,7 +40,14 @@ export default function Register() {
     setSubmitting(false);
   };
 
-  if (done) return <Success reg={saved} nav={nav} />;
+  const onReset = () => {
+    setForm(INIT);
+    setErrors({});
+    setSaved(null);
+    setDone(false);
+  };
+
+  if (done) return <Success reg={saved} nav={nav} onReset={onReset} />;
 
   return (
     <div style={{ background:'var(--navy)', minHeight:'100dvh' }}>
@@ -241,7 +248,7 @@ function ConfettiBubbles() {
   );
 }
 
-function Success({ reg, nav }) {
+function Success({ reg, nav, onReset }) {
   return (
     <div style={{ background:'var(--navy)', minHeight:'100dvh', display:'flex', alignItems:'center', justifyContent:'center', padding:24 }}>
       <ConfettiBubbles />
@@ -269,8 +276,6 @@ function Success({ reg, nav }) {
           Your spot for AS YOLO 2026 has been confirmed. We look forward to seeing you on the day.
         </p>
 
-
-
         {/* Summary */}
         <div className="card card-gold" style={{ padding:'20px', textAlign:'left', marginBottom:28 }}>
           <p className="t-section-label" style={{ marginBottom:14 }}>Event Summary</p>
@@ -297,8 +302,8 @@ function Success({ reg, nav }) {
         </p>
 
         <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
-          <button onClick={()=>nav('/program')} className="btn btn-gold btn-lg" style={{ width:'100%' }}>View Full Program</button>
-          <button onClick={()=>nav('/social')} className="btn btn-outline-teal btn-md" style={{ width:'100%' }}>Follow &amp; Watch Live</button>
+          <button onClick={onReset} className="btn btn-gold btn-lg" style={{ width:'100%' }}>Register Another Person</button>
+          <button onClick={()=>nav('/program')} className="btn btn-outline-teal btn-md" style={{ width:'100%' }}>View Full Program</button>
           <button onClick={()=>nav('/')} className="btn btn-outline btn-md" style={{ width:'100%' }}>Back to Home</button>
         </div>
       </div>
