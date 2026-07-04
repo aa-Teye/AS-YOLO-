@@ -4,7 +4,6 @@ import Landing from './pages/Landing';
 import Register from './pages/Register';
 import Program from './pages/Program';
 import Social from './pages/Social';
-import Admin from './pages/Admin';
 
 const NAV = [
   { to: '/',         label: 'Home',    icon: Home },
@@ -15,7 +14,6 @@ const NAV = [
 
 function BottomNav() {
   const { pathname } = useLocation();
-  if (pathname === '/admin') return null;
 
   return (
     <nav className="bottom-nav safe-bottom">
@@ -40,7 +38,6 @@ function AppLayout() {
         <Route path="/register" element={<Register />} />
         <Route path="/program"  element={<Program />} />
         <Route path="/social"   element={<Social />} />
-        <Route path="/admin"    element={<Admin />} />
         <Route path="*"         element={<Landing />} />
       </Routes>
       <BottomNav />

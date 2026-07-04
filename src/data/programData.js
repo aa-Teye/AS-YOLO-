@@ -136,6 +136,10 @@ export const SOCIAL_LINKS = [
 
 export const CATEGORIES = ["JHS/SHS Leaver", "Continuing Student", "University Fresher"];
 
+// Google Sheets Apps Script Web App URL
+// Paste your Web App URL inside the quotes below (e.g. "https://script.google.com/macros/s/AKfycb.../exec")
+export const GOOGLE_SHEET_SCRIPT_URL = "";
+
 // localStorage helpers
 export const STORAGE_KEY = "as_yolo_2026_registrations";
 
@@ -152,11 +156,25 @@ export const saveRegistration = (reg) => {
   const existing = getRegistrations();
   const newReg = {
     ...reg,
-    id: Date.now().toString(),
+    id: "REG-" + Math.floor(100000 + Math.random() * 900000), // Clean short ID
     registeredAt: new Date().toISOString(),
   };
   localStorage.setItem(STORAGE_KEY, JSON.stringify([...existing, newReg]));
+
+  // Sync with Google Sheet in the background if configured
+  if (GOOGLE_SHEET_SCRIPT_URL) {
+    fetch(GOOGLE_SHEET_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors', // Bypasses browser CORS errors with Google Script redirects
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newReg)
+    })
+    .then(() => console.log('Synced registration with Google Sheet successfully.'))
+    .catch(err => console.error('Google Sheet sync failed:', err));
+  }
+
   return newReg;
 };
 
-export const ADMIN_PASSWORD = "2500";

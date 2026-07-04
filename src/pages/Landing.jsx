@@ -294,13 +294,6 @@ export default function Landing() {
         <p style={{ fontSize:10, color:'rgba(255,255,255,0.12)', marginTop:6, fontStyle:'italic' }}>
           Rooted in Christ, Rising in Purpose
         </p>
-        <button onClick={() => nav('/admin')} style={{
-          background: 'none', border: 'none', color: 'rgba(255,255,255,0.15)',
-          fontSize: 9, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase',
-          marginTop: 16, cursor: 'pointer'
-        }}>
-          Admin Portal
-        </button>
       </div>
     </div>
   );
