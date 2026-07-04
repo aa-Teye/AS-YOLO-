@@ -39,7 +39,7 @@ export default function Landing() {
 
           {/* Org tag */}
           <p className="t-overline anim-up d1" style={{ marginBottom: 20 }}>
-            The Haven - ONCYM · Overcomers Nation Church
+            ONCYM
           </p>
 
           {/* Real Haven Logo */}

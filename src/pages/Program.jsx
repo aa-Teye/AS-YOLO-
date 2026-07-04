@@ -28,7 +28,7 @@ export default function Program() {
         borderBottom:'1px solid rgba(255,255,255,0.07)',
         padding:'56px 20px 24px'
       }}>
-        <p className="t-overline" style={{ marginBottom:8 }}>The Haven - ONCYM · 2026</p>
+        <p className="t-overline" style={{ marginBottom:8 }}>ONCYM · 2026</p>
         <h1 className="t-page-title" style={{ marginBottom:4 }}>Program Outline</h1>
         <p style={{ fontSize:12, color:'var(--white-40)', fontWeight:500 }}>
           Saturday, 4th July 2026 &nbsp;·&nbsp; 1:00 PM &nbsp;·&nbsp; Overcomers Nation Church

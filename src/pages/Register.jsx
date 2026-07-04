@@ -60,7 +60,7 @@ export default function Register() {
           <ChevronLeft size={14} /> Back
         </button>
         <div>
-          <p style={{ fontSize:10, fontWeight:800, letterSpacing:'0.15em', textTransform:'uppercase', color:'var(--teal)' }}>AS YOLO 2026</p>
+          <p style={{ fontSize:10, fontWeight:800, letterSpacing:'0.15em', textTransform:'uppercase', color:'var(--teal)' }}>ONCYM</p>
           <p style={{ fontSize:13, fontWeight:700, color:'var(--white)', lineHeight:1.1 }}>Registration</p>
         </div>
       </div>

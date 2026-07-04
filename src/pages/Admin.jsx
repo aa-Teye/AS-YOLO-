@@ -1,7 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, LogOut, Users, Download, Search, BarChart2, ChevronUp, ChevronDown, Printer, X } from 'lucide-react';
-import { getRegistrations, CATEGORIES, ADMIN_PASSWORD, PROGRAM_DATA } from '../data/programData';
+import { Lock, LogOut, Users, Download, Search, BarChart2, ChevronUp, ChevronDown, Printer, X, Loader2 } from 'lucide-react';
+import { getRegistrations, CATEGORIES, ADMIN_PASSWORD, PROGRAM_DATA, DB_URL } from '../data/programData';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 // ─── Login ─────────────────────────────────────────────────────────────────
@@ -76,8 +76,23 @@ function Dashboard({ onLogout }) {
   const [sortField, setSortField] = useState('registeredAt');
   const [sortDir, setSortDir] = useState('desc');
   const [view, setView] = useState('table');
+  const [raw, setRaw] = useState(() => getRegistrations());
+  const [loading, setLoading] = useState(false);
 
-  const raw = getRegistrations();
+  useEffect(() => {
+    setLoading(true);
+    fetch(DB_URL)
+      .then(res => res.ok ? res.text() : "[]")
+      .then(text => {
+        const data = text ? JSON.parse(text) : [];
+        if (data.length > 0) {
+          setRaw(data);
+          localStorage.setItem("as_yolo_2026_registrations", JSON.stringify(data));
+        }
+      })
+      .catch(err => console.error("Could not fetch online database:", err))
+      .finally(() => setLoading(false));
+  }, []);
 
   const filtered = useMemo(() => {
     let data = [...raw];
@@ -191,7 +206,12 @@ function Dashboard({ onLogout }) {
         {/* ── Table View ── */}
         {view === 'table' && (
           <>
-            <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+              {loading && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--teal-light)', marginRight: 8 }}>
+                  <Loader2 size={13} style={{ animation: 'spin 1s linear infinite' }} /> Syncing...
+                </div>
+              )}
               <div style={{ flex: 1, minWidth: 200, position: 'relative' }}>
                 <Search size={13} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.25)' }} />
                 <input id="admin-search" type="text" placeholder="Search name, phone, area..."
