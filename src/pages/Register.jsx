@@ -269,29 +269,7 @@ function Success({ reg, nav }) {
           Your spot for AS YOLO 2026 has been confirmed. We look forward to seeing you on the day.
         </p>
 
-        {/* QR Pass */}
-        <div className="card card-teal" style={{ padding:'20px', marginBottom:24, textAlign:'center' }}>
-          <p className="t-section-label" style={{ marginBottom:14 }}>Attendance QR Pass</p>
-          <div style={{ display:'flex', justifyContent:'center', marginBottom:14 }}>
-            <div style={{
-              background:'white', padding:10, borderRadius:12,
-              boxShadow:'0 4px 20px rgba(0,0,0,0.3)', display:'inline-block'
-            }}>
-              <img 
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(JSON.stringify({ id: reg?.id, name: reg?.fullName, phone: reg?.phone }))}`}
-                alt="Attendance Pass QR Code"
-                style={{ display:'block', width:150, height:150 }}
-              />
-            </div>
-          </div>
-          <p style={{ fontSize:12, fontWeight:700, color:'var(--teal-light)', marginBottom:4 }}>PASS ID: {reg?.id}</p>
-          <p style={{ fontSize:11, color:'var(--white-40)', lineHeight:1.5 }}>
-            Present this QR code to the ushers at the entrance to scan for attendance.
-          </p>
-          <button onClick={() => window.print()} className="btn btn-outline-teal btn-sm" style={{ marginTop:14, width:'100%' }}>
-            Print attendance pass
-          </button>
-        </div>
+
 
         {/* Summary */}
         <div className="card card-gold" style={{ padding:'20px', textAlign:'left', marginBottom:28 }}>
