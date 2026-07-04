@@ -138,7 +138,7 @@ export const CATEGORIES = ["JHS/SHS Leaver", "Continuing Student", "University F
 
 // Google Sheets Apps Script Web App URL
 // Paste your Web App URL inside the quotes below (e.g. "https://script.google.com/macros/s/AKfycb.../exec")
-export const GOOGLE_SHEET_SCRIPT_URL = "";
+export const GOOGLE_SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIWObyjegunelplZnBeJLFFyffK9_F6cWzMpDbZs_cknBJn_bNiDcEGz_hyjgqOMzl/exec";
 
 // localStorage helpers
 export const STORAGE_KEY = "as_yolo_2026_registrations";
