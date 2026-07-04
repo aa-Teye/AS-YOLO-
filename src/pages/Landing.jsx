@@ -1,9 +1,31 @@
 import { useNavigate } from 'react-router-dom';
-import { Calendar, MapPin, Clock, ChevronRight, Play, ExternalLink } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Calendar, MapPin, Clock, ChevronRight, Play, ExternalLink, ChevronLeft } from 'lucide-react';
 import { PROGRAM_DATA, SOCIAL_LINKS } from '../data/programData';
+
+const SLIDES = [
+  { src: '/assets/artwork-today.png', title: 'The Haven Choir Is Ready!', subtitle: 'Join us today at 1:00 PM Prompt at Overcomers Nation Church.' },
+  { src: '/assets/artwork-ebenezer.png', title: 'Rev. Dr. Ebenezer Okronipa', subtitle: 'Purpose Discovery and the Prophetic and Impactation.' },
+  { src: '/assets/artwork-abigail.png', title: 'Mrs. Abigail Akakpo', subtitle: 'Relationships, Boundaries and God\'s Design.' },
+  { src: '/assets/artwork-esther.png', title: 'LP Esther Okronipa', subtitle: 'Peer Pressure and the Power of Friendship.' },
+  { src: '/assets/artwork-repping.png', title: 'We Are Repping Live!', subtitle: 'Don\'t miss this glorious youth gathering.' },
+  { src: '/assets/artwork-tina.png', title: 'Spicey Drama with Tina', subtitle: 'See you this Saturday at 1:00 PM Prompt.' },
+  { src: '/assets/artwork-spiders.png', title: 'Spiders Dance Crew', subtitle: 'Get ready for an exciting and powerful time!' },
+];
 
 export default function Landing() {
   const nav = useNavigate();
+  const [slideIdx, setSlideIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSlideIdx(prev => (prev + 1) % SLIDES.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextSlide = () => setSlideIdx(prev => (prev + 1) % SLIDES.length);
+  const prevSlide = () => setSlideIdx(prev => (prev - 1 + SLIDES.length) % SLIDES.length);
 
   return (
     <div style={{ background: 'var(--navy)', minHeight: '100dvh', display: 'flex', flexDirection: 'column' }}>
@@ -90,37 +112,117 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ── TODAY COUNTDOWN BANNER ── */}
+      {/* ── TODAY COUNTDOWN BANNER (SLIDESHOW) ── */}
       <section style={{ padding: '24px 20px 0', background: 'var(--navy)' }}>
         <p className="t-section-label" style={{ marginBottom: 12 }}>Today's Feature</p>
         <div className="card card-gold" style={{ overflow: 'hidden', position: 'relative', boxShadow: '0 8px 32px rgba(196,146,42,0.15)' }}>
-          <img 
-            src="/assets/artwork-today.png" 
-            alt="It's Today!" 
-            style={{ width: '100%', height: 'auto', display: 'block' }} 
-          />
-          <div style={{
-            background: 'linear-gradient(to top, rgba(5,13,26,0.95) 0%, rgba(5,13,26,0.4) 70%, transparent 100%)',
-            padding: '24px 16px 16px', position: 'absolute', bottom: 0, left: 0, right: 0
-          }}>
-            <span className="badge badge-gold" style={{ marginBottom: 8 }}>Event Day</span>
-            <h3 style={{ fontSize: 16, fontWeight: 800, color: 'white', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-              The Haven Choir Is Ready!
-            </h3>
-            <p style={{ fontSize: 12, color: 'var(--white-60)', lineHeight: 1.4 }}>
-              Join us today at 1:00 PM Prompt at Overcomers Nation Church, Tesano.
-            </p>
+          
+          {/* Active slide view */}
+          <div style={{ position: 'relative' }}>
+            <img 
+              src={SLIDES[slideIdx].src} 
+              alt={SLIDES[slideIdx].title} 
+              style={{ width: '100%', height: 'auto', display: 'block', transition: 'all 0.5s ease-in-out' }} 
+            />
+            
+            {/* Arrows */}
+            <button onClick={prevSlide} style={{
+              position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)',
+              background: 'rgba(5,13,26,0.6)', border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '50%', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              color: 'white', cursor: 'pointer', zIndex: 10
+            }}>
+              <ChevronLeft size={18} />
+            </button>
+            <button onClick={nextSlide} style={{
+              position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)',
+              background: 'rgba(5,13,26,0.6)', border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '50%', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              color: 'white', cursor: 'pointer', zIndex: 10
+            }}>
+              <ChevronRight size={18} />
+            </button>
+
+            {/* Info overlay */}
+            <div style={{
+              background: 'linear-gradient(to top, rgba(5,13,26,0.95) 0%, rgba(5,13,26,0.4) 70%, transparent 100%)',
+              padding: '36px 16px 20px', position: 'absolute', bottom: 0, left: 0, right: 0
+            }}>
+              <span className="badge badge-gold" style={{ marginBottom: 8 }}>Highlights</span>
+              <h3 style={{ fontSize: 16, fontWeight: 800, color: 'white', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                {SLIDES[slideIdx].title}
+              </h3>
+              <p style={{ fontSize: 12, color: 'var(--white-60)', lineHeight: 1.4 }}>
+                {SLIDES[slideIdx].subtitle}
+              </p>
+            </div>
           </div>
+
+          {/* Dots Indicators */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 6, padding: '10px 0', background: 'rgba(5,13,26,0.95)' }}>
+            {SLIDES.map((_, i) => (
+              <button 
+                key={i} 
+                onClick={() => setSlideIdx(i)}
+                style={{
+                  width: i === slideIdx ? 16 : 6, height: 6, borderRadius: 3,
+                  background: i === slideIdx ? 'var(--gold)' : 'rgba(255,255,255,0.2)',
+                  border: 'none', cursor: 'pointer', transition: 'all 0.25s'
+                }}
+              />
+            ))}
+          </div>
+
         </div>
       </section>
 
       {/* ── WELCOME VIDEO SECTION ── */}
-      {/* To add your video: replace VIDEO_URL with your YouTube embed link */}
-      {/* e.g. https://www.youtube.com/embed/YOUR_VIDEO_ID */}
+      {/* To add your video: replace VIDEO_URL with your YouTube embed link or local file path */}
+      {/* e.g. 'https://www.youtube.com/embed/YOUR_VIDEO_ID' or '/assets/welcome-video.mp4' */}
       <section style={{ background:'var(--navy)', padding:'20px 20px 0' }}>
         {(() => {
-          const VIDEO_URL = ''; // PASTE YOUR VIDEO EMBED URL HERE
-          return VIDEO_URL ? (
+          const VIDEO_URL = ''; // PASTE YOUR VIDEO EMBED URL OR LOCAL FILE PATH HERE
+          const isLocalVideo = VIDEO_URL && !VIDEO_URL.includes('youtube.com') && !VIDEO_URL.includes('youtu.be') && !VIDEO_URL.includes('facebook.com');
+
+          if (!VIDEO_URL) {
+            return (
+              <div style={{
+                borderRadius:16,
+                background:'rgba(0,201,167,0.04)',
+                border:'1px dashed rgba(0,201,167,0.18)',
+                padding:'28px 20px', textAlign:'center'
+              }}>
+                <div style={{
+                  width:56, height:56, borderRadius:'50%', margin:'0 auto 14px',
+                  background:'rgba(0,201,167,0.1)', border:'1.5px solid rgba(0,201,167,0.25)',
+                  display:'flex', alignItems:'center', justifyContent:'center'
+                }}>
+                  <svg viewBox="0 0 24 24" fill="none" width="24" height="24">
+                    <circle cx="12" cy="12" r="10" stroke="#00C9A7" strokeWidth="1.5"/>
+                    <path d="M10 8l6 4-6 4V8z" fill="#00C9A7"/>
+                  </svg>
+                </div>
+                <p style={{ fontWeight:800, fontSize:14, color:'rgba(255,255,255,0.6)', marginBottom:5 }}>
+                  Welcome from The Haven - ONCYM
+                </p>
+                <p style={{ fontSize:11, color:'rgba(255,255,255,0.25)', lineHeight:1.7 }}>
+                  Your welcome video will appear here.<br/>
+                  Share the link or local file path to embed it.
+                </p>
+              </div>
+            );
+          }
+
+          return isLocalVideo ? (
+            <div style={{ position:'relative', width:'100%', borderRadius:16, overflow:'hidden', border:'1px solid rgba(255,255,255,0.1)' }}>
+              <video
+                src={VIDEO_URL}
+                controls
+                playsInline
+                style={{ width:'100%', height:'auto', display:'block' }}
+              />
+            </div>
+          ) : (
             <div style={{ position:'relative', paddingTop:'56.25%', width:'100%', borderRadius:16, overflow:'hidden' }}>
               <iframe
                 src={VIDEO_URL}
@@ -130,34 +232,10 @@ export default function Landing() {
                 style={{ position:'absolute', top:0, left:0, width:'100%', height:'100%', border:'none' }}
               />
             </div>
-          ) : (
-            <div style={{
-              borderRadius:16,
-              background:'rgba(0,201,167,0.04)',
-              border:'1px dashed rgba(0,201,167,0.18)',
-              padding:'28px 20px', textAlign:'center'
-            }}>
-              <div style={{
-                width:56, height:56, borderRadius:'50%', margin:'0 auto 14px',
-                background:'rgba(0,201,167,0.1)', border:'1.5px solid rgba(0,201,167,0.25)',
-                display:'flex', alignItems:'center', justifyContent:'center'
-              }}>
-                <svg viewBox="0 0 24 24" fill="none" width="24" height="24">
-                  <circle cx="12" cy="12" r="10" stroke="#00C9A7" strokeWidth="1.5"/>
-                  <path d="M10 8l6 4-6 4V8z" fill="#00C9A7"/>
-                </svg>
-              </div>
-              <p style={{ fontWeight:800, fontSize:14, color:'rgba(255,255,255,0.6)', marginBottom:5 }}>
-                Welcome from The Haven - ONCYM
-              </p>
-              <p style={{ fontSize:11, color:'rgba(255,255,255,0.25)', lineHeight:1.7 }}>
-                Your welcome video will appear here.<br/>
-                Share the link and I'll embed it right away.
-              </p>
-            </div>
           );
         })()}
       </section>
+
 
       {/* ── QUICK INFO SECTION ── */}
       <section style={{ padding:'36px 20px 28px', background:'var(--navy-mid)' }}>

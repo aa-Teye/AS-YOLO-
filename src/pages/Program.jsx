@@ -152,8 +152,9 @@ export default function Program() {
             <div style={{ display:'flex', flexDirection:'column', gap:12, marginBottom:24 }}>
               {[
                 { ...SPEAKERS[0], img:'/assets/artwork-esther.png' },
-                { ...SPEAKERS[1], img:'/assets/artwork-ebenezer.png' },
-                ...SPEAKERS.slice(2).map(s => ({ ...s, img: null })),
+                { ...SPEAKERS[1], img:'/assets/artwork-abigail.png' },
+                { ...SPEAKERS[2], img:'/assets/artwork-ebenezer.png' },
+                ...SPEAKERS.slice(3).map(s => ({ ...s, img: null })),
               ].map((s, i)=>(
                 <div key={s.id} className="card" style={{ overflow:'hidden' }}>
                   {s.img && (
