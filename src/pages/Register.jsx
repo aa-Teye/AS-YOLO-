@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckCircle, ChevronLeft, ArrowRight, Loader2, User, Phone, BookOpen, Tag, MapPin, Heart } from 'lucide-react';
 import { CATEGORIES, saveRegistration } from '../data/programData';
@@ -193,9 +193,59 @@ function FormField({ icon, label, hint, required, error, children }) {
   );
 }
 
+function ConfettiBubbles() {
+  const [bubbles, setBubbles] = useState([]);
+
+  useEffect(() => {
+    const list = [];
+    for (let i = 0; i < 30; i++) {
+      list.push({
+        id: i,
+        left: Math.random() * 100,
+        size: Math.random() * 14 + 6,
+        delay: Math.random() * 5,
+        duration: Math.random() * 4 + 4,
+        color: Math.random() > 0.5 ? 'var(--teal)' : 'var(--gold)'
+      });
+    }
+    setBubbles(list);
+  }, []);
+
+  return (
+    <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 99 }}>
+      {bubbles.map(b => (
+        <div
+          key={b.id}
+          style={{
+            position: 'absolute',
+            bottom: -50,
+            left: `${b.left}%`,
+            width: b.size,
+            height: b.size,
+            borderRadius: '50%',
+            background: b.color,
+            opacity: 0.5,
+            animation: `bubbleUp ${b.duration}s linear ${b.delay}s infinite`
+          }}
+        />
+      ))}
+      <style>{`
+        @keyframes bubbleUp {
+          0% { transform: translateY(0) scale(1); opacity: 0; }
+          10% { opacity: 0.6; }
+          90% { opacity: 0.6; }
+          100% { transform: translateY(-110vh) scale(1.3); opacity: 0; }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 function Success({ reg, nav }) {
   return (
     <div style={{ background:'var(--navy)', minHeight:'100dvh', display:'flex', alignItems:'center', justifyContent:'center', padding:24 }}>
+      <ConfettiBubbles />
+
       <div style={{ maxWidth:380, width:'100%', textAlign:'center' }}>
 
         {/* Icon */}
@@ -218,6 +268,30 @@ function Success({ reg, nav }) {
         <p style={{ fontSize:13, color:'var(--white-40)', lineHeight:1.7, marginBottom:28 }}>
           Your spot for AS YOLO 2026 has been confirmed. We look forward to seeing you on the day.
         </p>
+
+        {/* QR Pass */}
+        <div className="card card-teal" style={{ padding:'20px', marginBottom:24, textAlign:'center' }}>
+          <p className="t-section-label" style={{ marginBottom:14 }}>Attendance QR Pass</p>
+          <div style={{ display:'flex', justifyContent:'center', marginBottom:14 }}>
+            <div style={{
+              background:'white', padding:10, borderRadius:12,
+              boxShadow:'0 4px 20px rgba(0,0,0,0.3)', display:'inline-block'
+            }}>
+              <img 
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(JSON.stringify({ id: reg?.id, name: reg?.fullName, phone: reg?.phone }))}`}
+                alt="Attendance Pass QR Code"
+                style={{ display:'block', width:150, height:150 }}
+              />
+            </div>
+          </div>
+          <p style={{ fontSize:12, fontWeight:700, color:'var(--teal-light)', marginBottom:4 }}>PASS ID: {reg?.id}</p>
+          <p style={{ fontSize:11, color:'var(--white-40)', lineHeight:1.5 }}>
+            Present this QR code to the ushers at the entrance to scan for attendance.
+          </p>
+          <button onClick={() => window.print()} className="btn btn-outline-teal btn-sm" style={{ marginTop:14, width:'100%' }}>
+            Print attendance pass
+          </button>
+        </div>
 
         {/* Summary */}
         <div className="card card-gold" style={{ padding:'20px', textAlign:'left', marginBottom:28 }}>
