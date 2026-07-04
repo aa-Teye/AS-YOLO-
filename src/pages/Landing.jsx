@@ -17,7 +17,7 @@ export default function Landing() {
 
           {/* Org tag */}
           <p className="t-overline anim-up d1" style={{ marginBottom: 20 }}>
-            The Haven · Overcomers Nation Church
+            The Haven - ONCYM · Overcomers Nation Church
           </p>
 
           {/* Real Haven Logo */}
@@ -124,7 +124,7 @@ export default function Landing() {
             <div style={{ position:'relative', paddingTop:'56.25%', width:'100%', borderRadius:16, overflow:'hidden' }}>
               <iframe
                 src={VIDEO_URL}
-                title="Welcome to The Haven — AS YOLO 2026"
+                title="Welcome to The Haven - ONCYM — AS YOLO 2026"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 style={{ position:'absolute', top:0, left:0, width:'100%', height:'100%', border:'none' }}
@@ -148,7 +148,7 @@ export default function Landing() {
                 </svg>
               </div>
               <p style={{ fontWeight:800, fontSize:14, color:'rgba(255,255,255,0.6)', marginBottom:5 }}>
-                Welcome from The Haven
+                Welcome from The Haven - ONCYM
               </p>
               <p style={{ fontSize:11, color:'rgba(255,255,255,0.25)', lineHeight:1.7 }}>
                 Your welcome video will appear here.<br/>
@@ -164,7 +164,7 @@ export default function Landing() {
         <p className="t-section-label" style={{ marginBottom:20 }}>About the Event</p>
         <p style={{ fontSize:14, color:'var(--white-70)', lineHeight:1.8, marginBottom:24 }}>
           A powerful, purpose-filled gathering for young people at the crossroads of life — crafted by{' '}
-          <span style={{ color:'var(--teal-light)', fontWeight:600 }}>The Haven</span>, the youth ministry of{' '}
+          <span style={{ color:'var(--teal-light)', fontWeight:600 }}>The Haven - ONCYM</span>, the youth ministry of{' '}
           <span style={{ color:'var(--white-60)', fontWeight:600 }}>Overcomers Nation Church</span>.
         </p>
 
@@ -206,26 +206,7 @@ export default function Landing() {
         </a>
       ))}
 
-      {/* ── PERFORMER ARTWORKS ── */}
-      <section style={{ padding:'28px 20px 0', background:'var(--navy)' }}>
-        <p className="t-section-label" style={{ marginBottom:14 }}>Featuring</p>
-        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10 }}>
-          {[
-            { src:'/assets/artwork-spiders.png',   name:'Spiders Dance Crew',  role:'Dance' },
-            { src:'/assets/artwork-esther.png',     name:'LP Esther Okronipa',  role:'Speaker' },
-            { src:'/assets/artwork-ebenezer.png',   name:'Rev. Dr. E. Okronipa',role:'Minister' },
-            { src:'/assets/artwork-tina.png',       name:'Tina',                role:'Drama' },
-          ].map(p=>(
-            <div key={p.name} className="artwork-card">
-              <img src={p.src} alt={p.name} loading="lazy" />
-              <div className="artwork-card-label">
-                <p style={{ fontSize:10, fontWeight:800, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--teal-light)', marginBottom:2 }}>{p.role}</p>
-                <p style={{ fontSize:12, fontWeight:700, color:'white', lineHeight:1.2 }}>{p.name}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+
 
       {/* ── ENQUIRIES FOOTER ── */}
       <div style={{ padding:'20px 20px 100px', textAlign:'center' }}>

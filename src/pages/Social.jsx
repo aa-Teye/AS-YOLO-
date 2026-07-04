@@ -25,7 +25,7 @@ export default function Social() {
         </div>
         <h1 className="t-page-title" style={{ marginBottom:8 }}>Follow &amp; Connect</h1>
         <p style={{ fontSize:13, color:'var(--white-40)', lineHeight:1.6 }}>
-          Stay connected with The Haven across all platforms. Watch the event live on Facebook.
+          Stay connected with The Haven - ONCYM across all platforms. Watch the event live on Facebook.
         </p>
       </div>
 

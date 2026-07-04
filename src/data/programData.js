@@ -15,8 +15,8 @@ export const PROGRAM_DATA = {
   enquiries: ["0532458862", "0546363957"],
   mc: ["Michael Ameyaw", "Harriet Mensah"],
   org: {
-    name: "The Haven",
-    fullName: "The Haven — Youth Ministry of Overcomers Nation Church",
+    name: "The Haven - ONCYM",
+    fullName: "The Haven - ONCYM (Youth Ministry of Overcomers Nation Church)",
     tagline: "Rooted in Christ, Rising in Purpose",
     partners: ["Overcomers Nation Church", "Extreme Partners"],
   },
